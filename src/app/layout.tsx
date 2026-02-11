@@ -2,8 +2,11 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
-import Header from '@/components/Header';
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from '@mantine/core';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Habanero Galtee',
-  description: 'Habanero Galtee',
+  title: 'Habanero Anthropic',
+  description: 'Habanero Anthropic',
 };
 
 export default function RootLayout({
@@ -33,10 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
       >
-        <MantineProvider>
-          <Header />
-          {children}
-        </MantineProvider>
+        <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
   );

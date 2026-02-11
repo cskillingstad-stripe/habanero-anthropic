@@ -3,13 +3,12 @@
 import { useEffect, useState } from 'react';
 import { loadStripe, Appearance } from '@stripe/stripe-js';
 import { CheckoutProvider } from '@stripe/react-stripe-js/checkout';
-import OrderSummary from '@/components/OrderSummary';
 import Habanero from '@/components/Habanero';
 import { useSearchParams } from 'next/navigation';
 import { Loader } from '@mantine/core';
 
 const stripePromise = loadStripe(
-  'pk_test_51Sz0IEDpcOtDCQGwx2X8wL1zsCzRUSE0icHCewahT2aXB9shwR7mwqOLCxgrJD1kjMGXvshDb4LDNqnUSRnLAOLF00EunLBkWy',
+  'pk_test_51SxXw4LkR3ESQLj1YBCbqTMeq3OkwUqJLXaJMXn8fDq2aB2yhPgtaZnowwMyVzzLTdSSbvzamYcrU2tNTehcIUNQ00rTCtzESG',
   {
     betas: [
       // "custom_checkout_beta_6",
@@ -42,7 +41,7 @@ export default function Home() {
   const appearance: Appearance = {
     theme: 'stripe',
 
-    // Make it look like Galtee Figma
+    // Make it look like Anthropic Figma
     inputs: 'condensed',
     variables: {
       colorPrimary: '#222725',
@@ -76,9 +75,6 @@ export default function Home() {
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-16 py-12 px-4">
         <div id="habanero-container" className="md:col-span-3">
           <Habanero />
-        </div>
-        <div className="md:col-span-2">
-          <OrderSummary />
         </div>
       </div>
     </CheckoutProvider>
