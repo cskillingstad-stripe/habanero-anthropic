@@ -57,55 +57,61 @@ export default function Home() {
     },
   };
 
-  if (!clientSecret || loading) {
+  const renderContent = () => {
+    if (!clientSecret || loading) {
+      return (
+        <div className="flex items-center justify-center mt-12">
+          <Loader size="lg" color="#222725" />
+        </div>
+      );
+    }
+
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader size="lg" color="#222725" />
-      </div>
+      <CheckoutProvider
+        stripe={stripePromise}
+        options={{
+          clientSecret,
+          elementsOptions: {
+            appearance,
+            savedPaymentMethod: {
+              // Default is 'auto' in clover
+              enableSave: 'auto',
+              // Default is 'auto' in clover
+              enableRedisplay: 'auto',
+            },
+          },
+        }}
+      >
+        <Habanero />
+      </CheckoutProvider>
     );
-  }
+  };
 
   return (
-    <CheckoutProvider
-      stripe={stripePromise}
-      options={{
-        clientSecret,
-        elementsOptions: {
-          appearance,
-          savedPaymentMethod: {
-            // Default is 'auto' in clover
-            enableSave: 'auto',
-            // Default is 'auto' in clover
-            enableRedisplay: 'auto',
-          },
-        },
-      }}
-    >
-      <div className="min-h-screen flex justify-center px-4 py-8 md:py-12 relative">
-        <Link
-          href="/"
-          className="fixed top-6 left-6 flex items-center justify-center text-[#222725] hover:opacity-70 transition-opacity z-10"
-          aria-label="Back"
-        >
-          <IconArrowLeft size={24} stroke={2} />
-        </Link>
-        <div
-          id="habanero-container"
-          className="w-full max-w-[550px] py-8 px-6 md:px-10"
-        >
-          <header className="mb-5">
-            <h1 className="text-left text-xl font-semibold text-[#222725]">
-              Pro plan
-            </h1>
-          </header>
+    <div className="min-h-screen flex justify-center px-4 py-8 md:py-12 relative">
+      <Link
+        href="/"
+        className="fixed top-6 left-6 flex items-center justify-center text-[#222725] hover:opacity-70 transition-opacity z-10"
+        aria-label="Back"
+      >
+        <IconArrowLeft size={24} stroke={2} />
+      </Link>
+      <div
+        id="habanero-container"
+        className="w-full max-w-[550px] py-8 px-6 md:px-10"
+      >
+        <header className="mb-5">
+          <h1 className="text-left text-xl font-semibold text-[#222725]">
+            Pro plan
+          </h1>
+        </header>
 
-          <div className="mb-6">
-            <PlanSelector itemType={itemType} setItemType={setItemType} />
-          </div>
-
-          <Habanero />
+        <div className="mb-6">
+          <PlanSelector itemType={itemType} setItemType={setItemType} />
         </div>
+
+        {renderContent()}
       </div>
-    </CheckoutProvider>
+    </div>
   );
 }
