@@ -5,7 +5,10 @@ import { loadStripe, Appearance } from '@stripe/stripe-js';
 import { CheckoutProvider } from '@stripe/react-stripe-js/checkout';
 import Habanero from '@/components/Habanero';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { IconArrowLeft } from '@tabler/icons-react';
 import { Loader } from '@mantine/core';
+import { PlanSelector } from '@/components/PlanSelector';
 
 const stripePromise = loadStripe(
   'pk_test_51SxXw4LkR3ESQLj1YBCbqTMeq3OkwUqJLXaJMXn8fDq2aB2yhPgtaZnowwMyVzzLTdSSbvzamYcrU2tNTehcIUNQ00rTCtzESG',
@@ -22,36 +25,42 @@ const stripePromise = loadStripe(
 export default function Home() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const searchParams = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [itemType, setItemType] = useState<'monthly' | 'yearly'>('yearly');
 
   useEffect(() => {
     const fetchClientSecret = async () => {
+      setLoading(true);
+
       const res = await fetch('/api/create-checkout-session', {
         method: 'POST',
         body: JSON.stringify({
           returningUser: searchParams.get('returningUser') === 'true',
+          itemType,
         }),
       });
       const data = await res.json();
       setClientSecret(data.clientSecret);
+      setLoading(false);
     };
 
     fetchClientSecret();
-  }, []);
+  }, [itemType]);
 
   const appearance: Appearance = {
     theme: 'stripe',
 
     // Make it look like Anthropic Figma
-    inputs: 'condensed',
+    // inputs: 'condensed',
     variables: {
       colorPrimary: '#222725',
     },
   };
 
-  if (!clientSecret) {
+  if (!clientSecret || loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader size="lg" />
+        <Loader size="lg" color="#222725" />
       </div>
     );
   }
@@ -72,8 +81,28 @@ export default function Home() {
         },
       }}
     >
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-16 py-12 px-4">
-        <div id="habanero-container" className="md:col-span-3">
+      <div className="min-h-screen flex justify-center px-4 py-8 md:py-12 relative">
+        <Link
+          href="/"
+          className="fixed top-6 left-6 flex items-center justify-center text-[#222725] hover:opacity-70 transition-opacity z-10"
+          aria-label="Back"
+        >
+          <IconArrowLeft size={24} stroke={2} />
+        </Link>
+        <div
+          id="habanero-container"
+          className="w-full max-w-[550px] py-8 px-6 md:px-10"
+        >
+          <header className="mb-5">
+            <h1 className="text-left text-xl font-semibold text-[#222725]">
+              Pro plan
+            </h1>
+          </header>
+
+          <div className="mb-6">
+            <PlanSelector itemType={itemType} setItemType={setItemType} />
+          </div>
+
           <Habanero />
         </div>
       </div>

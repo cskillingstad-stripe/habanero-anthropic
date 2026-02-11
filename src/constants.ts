@@ -1,21 +1,17 @@
 export const ITEMS = {
-  fleece: {
+  monthly: {
     name: 'fleece',
-    title: "Women's Galtymore Fleece",
-    price: 16000,
-    image: '/products/fleece.png',
+    title: 'Monthly',
+    price: 2000,
+    image: 'na',
+    interval: 'month',
   },
-  puffer: {
+  yearly: {
     name: 'puffer',
-    title: "Men's Errigal Puffer Jacket",
-    price: 31500,
-    image: '/products/puffer.png',
-  },
-  'sleeping-bag': {
-    name: 'sleeping-bag',
-    title: 'Croagh Sleeping Bag -40F Down',
-    price: 13000,
-    image: '/products/sleeping-bag.png',
+    title: 'Yearly',
+    price: 20000,
+    image: 'na',
+    interval: 'year',
   },
 };
 

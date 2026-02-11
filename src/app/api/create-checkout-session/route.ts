@@ -17,8 +17,10 @@ const stripe = new Stripe(process.env.STRIPE_TEST_SK!, {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    // const { items } = body;
-    // const items = [];
+    const { itemType } = body;
+
+    // item is 'monthly' or 'yearly'
+    const item = ITEMS[itemType as keyof typeof ITEMS];
 
     // Create a Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -46,51 +48,55 @@ export async function POST(request: Request) {
       // ],
 
       // All needed for payment mode
-      mode: 'payment',
-      payment_method_types: ['card', 'us_bank_account', 'klarna'],
-      // Hardcode for now just one per ITEM
-      line_items: Object.values(ITEMS).map((item) => ({
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: item.name,
-          },
-          unit_amount: item.price,
-        },
-        quantity: 1,
-        adjustable_quantity: {
-          enabled: true,
-        },
-      })),
-      // Shipping address collection + methods
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
-      },
-      shipping_options: SHIPPING_OPTIONS.map((option) => ({
-        shipping_rate_data: {
-          display_name: option.name,
-          type: 'fixed_amount',
-          fixed_amount: {
-            amount: option.price,
+      mode: 'subscription',
+      // payment_method_types: ['card', 'us_bank_account', 'klarna'],
+      line_items: [
+        {
+          price_data: {
             currency: 'usd',
+            product_data: {
+              name: item.name,
+            },
+            unit_amount: item.price,
+            recurring: {
+              interval: item.interval as 'month' | 'year',
+            },
           },
-          delivery_estimate: {
-            minimum: option.min,
-            maximum: option.max,
+          quantity: 1,
+          adjustable_quantity: {
+            enabled: true,
           },
         },
-      })),
+      ],
+      // Shipping address collection + methods
+      // shipping_address_collection: {
+      //   allowed_countries: ['US', 'CA'],
+      // },
+      // shipping_options: SHIPPING_OPTIONS.map((option) => ({
+      //   shipping_rate_data: {
+      //     display_name: option.name,
+      //     type: 'fixed_amount',
+      //     fixed_amount: {
+      //       amount: option.price,
+      //       currency: 'usd',
+      //     },
+      //     delivery_estimate: {
+      //       minimum: option.min,
+      //       maximum: option.max,
+      //     },
+      //   },
+      // })),
 
       // Enable billing address
       billing_address_collection: 'required',
 
       // Enable Tax ID collection
-      tax_id_collection: {
-        enabled: true,
-        // TODO(cskillingstad): required not supported for ui_mode: 'custom'
-        // Hopefully Guacamole supports this
-        // required: 'if_supported',
-      },
+      // tax_id_collection: {
+      //   enabled: true,
+      //   // TODO(cskillingstad): required not supported for ui_mode: 'custom'
+      //   // Hopefully Guacamole supports this
+      //   // required: 'if_supported',
+      // },
       // TODO(cskillingstad): name_collection not supported for ui_mode: 'custom'
       // When this is enabled, TIDE should not show business name input
       // Hopefully Guacamole supports this
@@ -101,7 +107,7 @@ export async function POST(request: Request) {
       // },
 
       // Enable SPM
-      customer: body.returningUser ? 'cus_Twum9CXoI45P5W' : undefined,
+      customer: body.returningUser ? 'cus_TvOzXu1J5jSRw2' : undefined,
       customer_update: body.returningUser
         ? {
             name: 'auto',

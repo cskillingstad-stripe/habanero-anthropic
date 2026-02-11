@@ -9,7 +9,7 @@ export default function Habanero() {
   const searchParams = useSearchParams();
 
   return (
-    <div className="pt-6 md:pt-20 px-10 md:pl-20 md:pr-0 min-h-screen">
+    <div>
       <PaymentFormElement
         options={{
           contacts:

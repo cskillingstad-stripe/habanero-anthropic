@@ -35,6 +35,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
+        style={{ backgroundColor: '#f0eee6' }}
       >
         <MantineProvider>{children}</MantineProvider>
       </body>
