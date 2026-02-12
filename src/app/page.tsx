@@ -98,7 +98,7 @@ export default function Home() {
       </Link>
       <div
         id="habanero-container"
-        className="w-full max-w-[550px] py-8 px-6 md:px-10"
+        className="w-full max-w-[600px] py-8 px-6 md:px-10"
       >
         <header className="mb-5">
           <h1 className="text-left text-xl font-semibold text-[#222725]">
