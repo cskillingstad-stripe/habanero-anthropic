@@ -49,9 +49,8 @@ export default function Home() {
 
   const appearance: Appearance = {
     theme: 'stripe',
-
-    // Make it look like Anthropic Figma
-    // inputs: 'condensed',
+    inputs: 'condensed',
+    labels: 'floating',
     variables: {
       colorPrimary: '#222725',
     },

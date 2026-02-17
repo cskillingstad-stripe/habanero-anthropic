@@ -13,7 +13,7 @@ export const PlanSelector = ({
       <button
         type="button"
         onClick={() => setItemType('monthly')}
-        className={`relative flex flex-col items-start w-full max-w-[240px] rounded-lg border p-4 text-left transition-colors cursor-pointer ${
+        className={`relative flex flex-1 flex-col items-start rounded-lg border p-4 text-left transition-colors cursor-pointer ${
           isMonthly
             ? 'border-sky-200 bg-sky-50'
             : 'border-slate-300 bg-transparent'
@@ -41,7 +41,7 @@ export const PlanSelector = ({
       <button
         type="button"
         onClick={() => setItemType('yearly')}
-        className={`relative flex flex-col items-start w-full max-w-[240px] rounded-lg border p-4 text-left transition-colors cursor-pointer ${
+        className={`relative flex flex-1 flex-col items-start rounded-lg border p-4 text-left transition-colors cursor-pointer ${
           isYearly
             ? 'border-sky-200 bg-sky-50'
             : 'border-slate-300 bg-transparent'
