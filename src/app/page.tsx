@@ -53,6 +53,7 @@ export default function Home() {
     labels: 'floating',
     variables: {
       colorPrimary: '#222725',
+      colorBackground: '#f0eee6',
     },
   };
 
