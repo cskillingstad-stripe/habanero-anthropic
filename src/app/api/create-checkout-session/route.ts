@@ -107,7 +107,7 @@ export async function POST(request: Request) {
       // },
 
       // Enable SPM
-      customer: body.returningUser ? 'cus_TvOzXu1J5jSRw2' : undefined,
+      customer: body.returningUser ? 'cus_U0DHKt7JzW0rGm' : undefined,
       customer_update: body.returningUser
         ? {
             name: 'auto',
