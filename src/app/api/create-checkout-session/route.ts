@@ -142,6 +142,10 @@ export async function POST(request: Request) {
       //   },
       // ],
 
+      adaptive_pricing: {
+        enabled: true,
+      },
+
       return_url: `${request.headers.get('origin')}/complete?session_id={CHECKOUT_SESSION_ID}`,
     });
 
