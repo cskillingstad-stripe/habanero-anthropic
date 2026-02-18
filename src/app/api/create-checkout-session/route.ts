@@ -4,7 +4,7 @@ import { ITEMS, SHIPPING_OPTIONS } from '@/constants';
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SK!, {
   // @ts-expect-error - apiVersion type error
-  apiVersion: '2025-08-27.basil;custom_checkout_payment_form_preview=v1',
+  apiVersion: '2025-09-30.clover;custom_checkout_payment_form_preview=v1',
 });
 
 // const calculateOrderAmount = (_items: any) => {
