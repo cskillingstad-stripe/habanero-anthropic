@@ -68,6 +68,7 @@ export default function Home() {
         stripe={stripePromise}
         options={{
           clientSecret,
+          adaptivePricing: { allowed: true },
           elementsOptions: {
             appearance,
             savedPaymentMethod: {
