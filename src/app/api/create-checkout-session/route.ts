@@ -91,12 +91,12 @@ export async function POST(request: Request) {
       billing_address_collection: 'required',
 
       // Enable Tax ID collection
-      // tax_id_collection: {
-      //   enabled: true,
-      //   // TODO(cskillingstad): required not supported for ui_mode: 'custom'
-      //   // Hopefully Guacamole supports this
-      //   // required: 'if_supported',
-      // },
+      tax_id_collection: {
+        enabled: true,
+        // TODO(cskillingstad): required not supported for ui_mode: 'custom'
+        // Hopefully Guacamole supports this
+        // required: 'if_supported',
+      },
       // TODO(cskillingstad): name_collection not supported for ui_mode: 'custom'
       // When this is enabled, TIDE should not show business name input
       // Hopefully Guacamole supports this
