@@ -13,7 +13,7 @@ export default function Habanero() {
   // Show border around Habanero on Cmd + H
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'h') {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
         e.preventDefault();
         setShowBorder((b) => !b);
       }
