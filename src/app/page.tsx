@@ -88,7 +88,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex justify-center px-4 py-8 md:py-12 relative">
       <Link
-        href="https://go/loginas/acct_1SzSXoA1wAikgJu5"
+        href="https://go/loginas/acct_1SVLV7AeZVfyJkfg"
         className="fixed top-6 left-6 flex items-center justify-center text-[#222725] hover:opacity-70 transition-opacity z-10"
         aria-label="Back"
       >
